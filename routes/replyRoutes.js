@@ -1,13 +1,13 @@
 import express from 'express';
 
 import {
-  getReply,
-  createReply,
-  getReplies,
-  updateReplyScore,
-  editReply,
-  toggleReplyShowReplyForm,
-  deleteReply
+	getReply,
+	createReply,
+	getReplies,
+	updateReplyScore,
+	editReply,
+	toggleReplyShowReplyForm,
+	deleteReply
 } from '../controller/replyController.js';
 
 const router = express.Router({ mergeParams: true });

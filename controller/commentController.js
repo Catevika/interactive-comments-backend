@@ -10,13 +10,13 @@ export const router = express.Router();
  * * @access  Public
  **/
 const getComments = ash(async (req, res) => {
-  const comments = await Comment.find().populate('replies');
-  if (comments) {
-    res.json(comments);
-  } else {
-    res.status(404);
-    throw new Error('No comment found');
-  }
+	const comments = await Comment.find().populate('replies');
+	if (comments) {
+		res.json(comments);
+	} else {
+		res.status(404);
+		throw new Error('No comment found');
+	}
 });
 
 /**
@@ -25,23 +25,23 @@ const getComments = ash(async (req, res) => {
  * * @access  currentUser
  **/
 const createComment = ash(async (req, res) => {
-  const comment = Comment.create({
-    content: req.body.content,
-    createdAt: new Date(),
-    updatedAt: new Date(),
-    score: 0,
-    user: {
-      image: {
-        png: "../../assets/avatars/image-juliusomo.png",
-        webp: "../../assets/avatars/image-juliusomo.webp"
-      },
-      username: "juliusomo"
-    },
-    replies: [],
-    showReplyForm: false
-  });
+	const comment = Comment.create({
+		content: req.body.content,
+		createdAt: new Date(),
+		updatedAt: new Date(),
+		score: 0,
+		user: {
+			image: {
+				png: '../../assets/avatars/image-juliusomo.png',
+				webp: '../../assets/avatars/image-juliusomo.webp'
+			},
+			username: 'juliusomo'
+		},
+		replies: [],
+		showReplyForm: false
+	});
 
-  res.status(201).json(comment);
+	res.status(201).json(comment);
 });
 
 /**
@@ -50,14 +50,14 @@ const createComment = ash(async (req, res) => {
  * * @access  Public
  **/
 const getComment = ash(async (req, res) => {
-  const comment = await Comment.findById(req.params.id).populate('replies');
+	const comment = await Comment.findById(req.params.id).populate('replies');
 
-  if (comment) {
-    res.json(comment);
-  } else {
-    res.status(404);
-    throw new Error('Comment not found');
-  }
+	if (comment) {
+		res.json(comment);
+	} else {
+		res.status(404);
+		throw new Error('Comment not found');
+	}
 });
 
 /**
@@ -66,17 +66,19 @@ const getComment = ash(async (req, res) => {
  * * @access  Public
  **/
 const updateScore = ash(async (req, res) => {
-  const commentFound = await Comment.findById(req.params.id).populate('replies');
+	const commentFound = await Comment.findById(req.params.id).populate(
+		'replies'
+	);
 
-  if (commentFound) {
-    commentFound.score = req.body.score;
-    commentFound.updatedAt = new Date();
-    await commentFound.save();
-    res.json(commentFound);
-  } else {
-    res.status(404);
-    throw new Error('Comment not found');
-  }
+	if (commentFound) {
+		commentFound.score = req.body.score;
+		commentFound.updatedAt = new Date();
+		await commentFound.save();
+		res.json(commentFound);
+	} else {
+		res.status(404);
+		throw new Error('Comment not found');
+	}
 });
 
 /**
@@ -85,16 +87,18 @@ const updateScore = ash(async (req, res) => {
  * * @access  Public
  **/
 const toggleShowReplyForm = ash(async (req, res) => {
-  const commentFound = await Comment.findById(req.params.id).populate('replies');
+	const commentFound = await Comment.findById(req.params.id).populate(
+		'replies'
+	);
 
-  if (commentFound) {
-    commentFound.showReplyForm = req.body.showReplyForm;
-    await commentFound.save();
-    res.json(commentFound);
-  } else {
-    res.status(404);
-    throw new Error('Comment not found');
-  }
+	if (commentFound) {
+		commentFound.showReplyForm = req.body.showReplyForm;
+		await commentFound.save();
+		res.json(commentFound);
+	} else {
+		res.status(404);
+		throw new Error('Comment not found');
+	}
 });
 
 /**
@@ -103,17 +107,19 @@ const toggleShowReplyForm = ash(async (req, res) => {
  * * @access  Public
  **/
 const editComment = ash(async (req, res) => {
-  const commentFound = await Comment.findById(req.params.id).populate('replies');
+	const commentFound = await Comment.findById(req.params.id).populate(
+		'replies'
+	);
 
-  if (commentFound) {
-    commentFound.content = req.body.content;
-    commentFound.updatedAt = new Date();
-    await commentFound.save();
-    res.json(commentFound);
-  } else {
-    res.status(404);
-    throw new Error('Comment not found');
-  }
+	if (commentFound) {
+		commentFound.content = req.body.content;
+		commentFound.updatedAt = new Date();
+		await commentFound.save();
+		res.json(commentFound);
+	} else {
+		res.status(404);
+		throw new Error('Comment not found');
+	}
 });
 
 /**
@@ -123,22 +129,22 @@ const editComment = ash(async (req, res) => {
  **/
 
 const deleteComment = ash(async (req, res) => {
-  const comment = await Comment.findByIdAndRemove(req.params.id);
+	const comment = await Comment.findByIdAndRemove(req.params.id);
 
-  if (!comment) {
-    res.status(404);
-    throw new Error('Comment not found');
-  } else {
-    res.status(204).json('Comment deleted');
-  }
+	if (!comment) {
+		res.status(404);
+		throw new Error('Comment not found');
+	} else {
+		res.status(204).json('Comment deleted');
+	}
 });
 
 export {
-  createComment,
-  getComments,
-  getComment,
-  updateScore,
-  toggleShowReplyForm,
-  editComment,
-  deleteComment
+	createComment,
+	getComments,
+	getComment,
+	updateScore,
+	toggleShowReplyForm,
+	editComment,
+	deleteComment
 };
