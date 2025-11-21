@@ -188,7 +188,7 @@ const deleteReply = ash(async (req, res) => {
 				(reply) => reply._id.toString() !== req.params.replyId
 			);
 			await comment.save();
-			await Reply.findByIdAndRemove(req.params.replyId);
+			await Reply.findByIdAndDelete(req.params.replyId);
 			res.status(204).json('Reply deleted');
 		}
 	} else {

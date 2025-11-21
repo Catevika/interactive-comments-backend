@@ -129,7 +129,7 @@ const editComment = ash(async (req, res) => {
  **/
 
 const deleteComment = ash(async (req, res) => {
-	const comment = await Comment.findByIdAndRemove(req.params.id);
+	const comment = await Comment.findByIdAndDelete(req.params.id);
 
 	if (!comment) {
 		res.status(404);
