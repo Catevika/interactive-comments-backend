@@ -35,7 +35,7 @@ const commentSchema = new mongoose.Schema({
 	},
 	replies: [
 		{
-			type: mongoose.Schema.string,
+			type: mongoose.Schema.Types.ObjectId,
 			ref: 'Reply'
 		}
 	],

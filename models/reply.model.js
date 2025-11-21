@@ -2,7 +2,7 @@ import mongoose from 'mongoose';
 
 const replySchema = new mongoose.Schema({
 	comment: {
-		type: mongoose.Schema.string,
+		type: mongoose.Schema.Types.ObjectId,
 		ref: 'Comment'
 	},
 	createdAt: {
